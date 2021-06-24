@@ -18,19 +18,19 @@ class Sheet:
                 #print(matchCell, matchOperator, matchNumber)
                 if matchCell:
                     cellValue = self.sheet[matchCell]
-                    cellValuesArray += self.sheet[matchCell]
+                    cellValuesArray.append(self.getCellValue(matchCell))
                 if matchOperator:
-                    cellValuesArray += matchOperator
+                    cellValuesArray.append(matchOperator)
                 if matchNumber:
                     cellValue = matchNumber
-                    cellValuesArray += matchNumber
+                    cellValuesArray.append(matchNumber)
         else:
             cellValue = cellInput
-
+        # print(cellValuesArray)
         if "+" in cellValuesArray:
             sumTotal = 0
             for item in cellValuesArray:
-                if re.match(r"\d",item):
+                if re.match(r"\d+",item):
                     sumTotal += int(item)
             cellValue = str(sumTotal)
 
@@ -74,3 +74,14 @@ sheettest5.setCellValue("A3", "= A1 + A2")
 print("Expected 13 got:", sheettest5.getCellValue("A3"))
 assert sheettest5.getCellValue("A3") == "13", "Cell function handles adding cell reference to cell refrence"
 
+sheettest6 = Sheet()
+sheettest6.setCellValue("A1", "5")
+sheettest6.setCellValue("A2", "= A1")
+sheettest6.setCellValue("A3", "= 5 + A2")
+print("Expected 10 got:", sheettest6.getCellValue("A3"))
+assert sheettest6.getCellValue("A3") == "10", "Cell function handles adding nested cell references"
+
+sheettest7 = Sheet()
+sheettest7.setCellValue("A1", "= 15 + 15")
+print("Expected 30 got:", sheettest7.getCellValue("A1"))
+assert sheettest7.getCellValue("A1") == "30", "Cell function handles adding multidigit integers"
