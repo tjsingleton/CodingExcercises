@@ -67,5 +67,10 @@ sheettest4.setCellValue("A2", "=A1+6")
 print("Expected 10 got:", sheettest4.getCellValue("A2"))
 assert sheettest4.getCellValue("A2") == "11", "Cell function handles adding integers to cell refrence"
 
-
+sheettest5 = Sheet()
+sheettest5.setCellValue("A1", "7")
+sheettest5.setCellValue("A2", "6")
+sheettest5.setCellValue("A3", "= A1 + A2")
+print("Expected 13 got:", sheettest5.getCellValue("A3"))
+assert sheettest5.getCellValue("A3") == "13", "Cell function handles adding cell reference to cell refrence"
 
