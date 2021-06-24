@@ -74,3 +74,9 @@ sheettest5.setCellValue("A3", "= A1 + A2")
 print("Expected 13 got:", sheettest5.getCellValue("A3"))
 assert sheettest5.getCellValue("A3") == "13", "Cell function handles adding cell reference to cell refrence"
 
+sheettest6 = Sheet()
+sheettest6.setCellValue("A1", "5")
+sheettest6.setCellValue("A2", "= A1")
+sheettest6.setCellValue("A3", "= 5 + A2")
+print("Expected 10 got:", sheettest6.getCellValue("A3"))
+assert sheettest6.getCellValue("A3") == "10", "Cell function handles adding nested cell references"
