@@ -13,3 +13,23 @@ Four distinct patterns comprise all substrings
   4. Strings where the original string is reduced, starting with the first char,
      until only two characters remain.
 end"""
+
+def findSubstrings(string):
+   subArray = []
+   length = len(string)
+   for char in string:
+      subArray.append(char)
+   for place in range(0,length):
+      for iteration in range(1,length):
+         if place < iteration:
+            combo = ''
+            combo += string[place]
+            if combo != string[iteration]:
+               combo += string[iteration]
+            if combo not in subArray:
+               subArray.append(combo)
+   subArray.append(string)
+   return subArray
+
+print("expected ['a','b','c','ab','ac','bc','abc'] got:", findSubstrings("abc"))
+assert findSubstrings("abc") == ['a','b','c','ab','ac','bc','abc'] , "three char string produces correct substrings"
