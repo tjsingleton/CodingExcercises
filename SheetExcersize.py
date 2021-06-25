@@ -1,3 +1,4 @@
+# Try running pylint (https://www.pylint.org/) and learning from it's suggestions. It'll help you write python in a generally accepted style. 
 import re
 
 class Sheet:
@@ -7,10 +8,14 @@ class Sheet:
     def setCellValue (self,cell, input):
         self.sheet[cell] = input
 
+    # If you were to write a description of what this method does, would you need to use "AND"? 
+    # If so, your method is doing too much and it'd be easier to understand if you broke it up. 
+    # Visually I can tell by the nesting and the size it's doing more than one thing. 
     def getCellValue (self, cell):
         cellInput = self.sheet[cell]
         cellValue = None
-        cellValuesArray = []
+        cellValuesArray = []      
+
         if cellInput.startswith("="):
             matchCells = re.findall(r"(?P<cell>[A-z]+\d+)|(?P<operator>\+)|(?P<number>\d+)", cellInput)
             #print("Match= ", matchCells)
@@ -24,12 +29,15 @@ class Sheet:
                 if matchNumber:
                     cellValue = matchNumber
                     cellValuesArray.append(matchNumber)
+                # This part is setting up cellValuesArray. Line 36 picks it back up, but reading flow is interruputed by the else statement.
+                # The else case doesn't use cellValuesArray. Line 36 can only be true if line 18 is true.
         else:
             cellValue = cellInput
         # print(cellValuesArray)
         if "+" in cellValuesArray:
             sumTotal = 0
             for item in cellValuesArray:
+                # Should this be an error? 
                 if re.match(r"\d+",item):
                     sumTotal += int(item)
             cellValue = str(sumTotal)
@@ -39,6 +47,9 @@ class Sheet:
 
 
 # Tests
+# There is a lot of duplication in these tests that get in the way of reading them. 
+# I kept finding that I'd change the expected value on the right side of the "==", but not the expected value "Expected X got:" part. 
+# How could we print the expectation string only when the test fails? 
 
 sheettest = Sheet()
 sheettest.setCellValue("A1", "5")
@@ -85,3 +96,11 @@ sheettest7 = Sheet()
 sheettest7.setCellValue("A1", "= 15 + 15")
 print("Expected 30 got:", sheettest7.getCellValue("A1"))
 assert sheettest7.getCellValue("A1") == "30", "Cell function handles adding multidigit integers"
+
+# Modifying the same code will cause you to live with your decisions and see what makes it easy to change. 
+# * What would it look like if you wanted to support subtraction? division, and multiplication? Would you handle precendence? Could you handle parens? 
+# * What about other range functions like = SUM(A1:A3)
+# * If I were to write a UI, when I setCellValue then I need to understand which other cells I need to getCellValue to update. 
+#   Can you add to the interface a method which tells me which cells reference a cell address? Then I can getCellValue for each of these. 
+# * How would you persist a spreadsheet to disk and load it back into memory? 
+# * How would you display it, say a output a html file with a <table>? 
