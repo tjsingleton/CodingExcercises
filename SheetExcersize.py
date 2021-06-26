@@ -59,53 +59,90 @@ class Sheet:
 # How could we print the expectation string only when the test fails? 
 sheettest = Sheet()
 sheettest.setCellValue("A1", "5")
-assert sheettest.getCellValue("A1") == "5", "Get cell simple value.\
-     Expected 5 got: {}".format(sheettest.getCellValue("A1"))
+testCell = "A1"
+expectedValue = "5"
+assert sheettest.getCellValue(testCell) == "5", "Get cell simple value.\
+     Expected {} got: {}".format(
+         expectedValue,
+         sheettest.getCellValue(testCell)
+         )
 
 sheettest1 = Sheet()
 sheettest1.setCellValue("A1", "5")
 sheettest1.setCellValue("A2", "= A1")
-assert sheettest1.getCellValue("A2") == "5", "Cell reference give value.\
-     Expected 5 got: {}".format(sheettest1.getCellValue("A2"))
+testCell = "A2"
+expectedValue = "5"
+assert sheettest1.getCellValue(testCell) == expectedValue, "Cell reference give value.\
+     Expected {} got: {}".format(
+         expectedValue,
+         sheettest1.getCellValue(testCell)
+         )
 
 sheettest2 = Sheet()
 sheettest2.setCellValue("A3", "=5")
-assert sheettest2.getCellValue("A3") == "5", "Cell function handles integer.\
-     Expected 5 got: {}".format(sheettest2.getCellValue("A3"))
+testCell = "A3"
+expectedValue = "5"
+assert sheettest2.getCellValue(testCell) == expectedValue, "Cell function handles integer.\
+     Expected {} got: {}".format(
+         expectedValue,
+         sheettest2.getCellValue(testCell)
+         )
 
 sheettest3 = Sheet()
 sheettest3.setCellValue("A3", "=5+5")
-assert sheettest3.getCellValue("A3") == "10", "Cell function handles adding integers.\
-     Expected 10 got: {}".format(sheettest3.getCellValue("A3"))
+testCell = "A3"
+expectedValue = "10"
+assert sheettest3.getCellValue(testCell) == expectedValue, "Cell function handles adding integers.\
+     Expected {} got: {}".format(
+         expectedValue,
+         sheettest3.getCellValue(testCell)
+         )
 
 sheettest4 = Sheet()
 sheettest4.setCellValue("A1", "5")
 sheettest4.setCellValue("A2", "=A1+6")
-assert sheettest4.getCellValue("A2") == "11", "Cell function handles adding\
+testCell = "A2"
+expectedValue = "11"
+assert sheettest4.getCellValue(testCell) == expectedValue, "Cell function handles adding\
     integers to cell refrence.\
-    Expected 11 got: {}".format(sheettest4.getCellValue("A2"))
+    Expected {} got: {}".format(
+        expectedValue,
+        sheettest4.getCellValue(testCell)
+        )
 
 sheettest5 = Sheet()
 sheettest5.setCellValue("A1", "7")
 sheettest5.setCellValue("A2", "6")
 sheettest5.setCellValue("A3", "= A1 + A2")
-assert sheettest5.getCellValue("A3") == "13", "Cell function handles adding\
-     cell reference to cell refrence. Expected 13 got: {}".format(
-         sheettest5.getCellValue("A2"))
+testCell = "A3"
+expectedValue = "13"
+assert sheettest5.getCellValue(testCell) == expectedValue, "Cell function handles adding\
+     cell reference to cell refrence. Expected {} got: {}".format(
+         expectedValue,
+         sheettest5.getCellValue(testCell)
+         )
 
 sheettest6 = Sheet()
 sheettest6.setCellValue("A1", "5")
 sheettest6.setCellValue("A2", "= A1")
 sheettest6.setCellValue("A3", "= 5 + A2")
-assert sheettest6.getCellValue("A3") == "10", "Cell function handles adding\
-     nested cell references. Expected 10 got: {}".format(
-         sheettest6.getCellValue("A3"))
+testCell = "A3"
+expectedValue = "10"
+assert sheettest6.getCellValue(testCell) == expectedValue, "Cell function handles adding\
+     nested cell references. Expected {} got: {}".format(
+         expectedValue,
+         sheettest6.getCellValue(testCell)
+         )
 
 sheettest7 = Sheet()
 sheettest7.setCellValue("A1", "= 15 + 15")
-assert sheettest7.getCellValue("A1") == "30", "Cell function handles adding\
-     multidigit integers. Expected 30 got: {}".format(
-         sheettest7.getCellValue("A1"))
+testCell = "A1"
+expectedValue = "30"
+assert sheettest7.getCellValue(testCell) == expectedValue, "Cell function handles adding\
+     multidigit integers. Expected {} got: {}".format(
+         expectedValue,
+         sheettest7.getCellValue(testCell)
+         )
 
 # Modifying the same code will cause you to live with your decisions and see what makes it easy to change. 
 # * What would it look like if you wanted to support subtraction? division, and multiplication? Would you handle precendence? Could you handle parens? 
