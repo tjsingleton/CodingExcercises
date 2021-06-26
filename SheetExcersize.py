@@ -17,6 +17,8 @@ class Sheet:
         cellValue = None
         cellValuesArray = []      
 
+        if not cellInput.startswith("="):
+            cellValue = cellInput
         if cellInput.startswith("="):
             matchCells = re.findall(
                 r"(?P<cell>[A-z]+\d+)|(?P<operator>\+)|(?P<number>\d+)",
@@ -34,8 +36,11 @@ class Sheet:
                     cellValuesArray.append(matchNumber)
                 # This part is setting up cellValuesArray. Line 36 picks it back up, but reading flow is interruputed by the else statement.
                 # The else case doesn't use cellValuesArray. Line 36 can only be true if line 18 is true.
-        else:
-            cellValue = cellInput
+                # 
+                # Paul - Moved else statement to if statement before cell
+                #       function logic. This makes the flow easier
+                #       to follow.
+
         # print(cellValuesArray)
         if "+" in cellValuesArray:
             sumTotal = 0
