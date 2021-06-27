@@ -1,0 +1,45 @@
+Bowling Game Kata
+
+1. Create BowlingGameTest.py and BowlingGame.py documents.
+	- BolingGameTest should import unittest and BowlingGame Game.
+2. Create a test in BowlingGameTest that tests for gutter game (bowling all zeros) == 0.
+	- class BowlingGameTest with unittest.TestCase inherited.
+		- class BowlingGameTest(unittest.TestCase):
+	- function for guttergame that iterates 20 rolls and asserts score = 0.
+	- use self.assertEqual from the parent TestCase class.
+3. Create code in BowlingGame that makes this true.
+4. Create a test in BowlingGameTest that tests for all ones = 20.
+5. Factor out repeating test code. 
+	- creating game instance self.g = Game() is repetitive.
+	- create setUp method that instantiates a Game object.
+6. Create code in BowlingGame that makes this true.
+7. Create function in BowlingGameTest that iterates a number of rolls with x pins per roll.  Add this function to tests with multiple rolls of the same value.
+8. Write a test to test one spare. 
+	- The spare bonus = 10 + number of pins knocked down on first ball of next frame
+	- example first frame first roll (5), second roll (5) **SPARE**, first roll in next frame (3).  Total for the first frame is 13, total score is 16
+9. Write code to calculate spare.
+	- remove the self.score variable in the class
+	- set score as a function.  This replaces the variable.
+	- create an array variable in the Game class named self.rolls[]
+	- set a running score in score function. The value should be 0.  this will be returned at the end of the function.
+	- set a frameIndex in score function.  The value should be 0
+	- Iterate over a range of 10 in score function.
+		- if rolls[frameIndex] + rolls[frameIndex + 1] == 10
+		- then add 10 to score and score from the first roll of the next frame (self.rolls[frameIndex +2]). Also iterate frameIndex by 2.
+		- if not a spare add rolls[frameIndex] + rolls[frameIndex + 1] to score
+ 	- create class function to test if isSpare. this should return a boolean 
+		- return self.rolls[frameIndex] + self.rolls[frameIndex + 1] == 10
+		- this function will replace the logic on the if statement if 10 is acheived in two rolls.
+10. Write a test to test a strike.
+	- the strike bonus = 10 + score of next frame 
+11. Write code to calculate for a strike.
+	- add if statement to detect 10 in first roll.
+	- add 10 + next frame to score
+	- iterate frameIndex by 1 (only one roll in strike frame)
+12. Clean up code.
+	- create strikeBonus function that inputs frame index and calculates strike bonus.
+	- create spareBonus function that inputs frame index and calculates spare bonus.
+	- create isStrike function that determines if first roll in frame is strike.
+	- add rollSpare and rollStrike function to test and replace spares and strikes in existing functions.
+13. Write a test for rolling a 300.
+	- This should pass with no intervention.
